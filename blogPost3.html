@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>The Art of Skateboarding</title>
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+	<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+	<style>
+        .navbar-scroll .nav-link,
+		.navbar-scroll .navbar-toggler-icon,
+		.navbar-scroll .navbar-brand {
+		    color: #fff;
+		}
+		.navbar-scrolled .nav-link,
+		.navbar-scrolled .navbar-toggler-icon,
+		.navbar-scrolled .navbar-brand {
+		    color: #fff;
+		}
+		.navbar-scroll,
+		.navbar-scrolled {
+		    background-color: #cbbcb1;
+		}
+		.mask-custom {
+            backdrop-filter: blur(5000px);
+            background-color: rgba(255, 255, 255, .15);
+		}
+		.navbar-brand {
+            font-size: 1.75rem;
+            letter-spacing: 3px;
+		}
+		body {
+			background: url(images/bg.jpg);
+			background-color: rgba(250, 182, 162, 0.15);
+		}
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+            font-family: arial;
+        }
+        .wrapper{
+            position: fixed;
+        }
+        .sidebar{
+            position: fixed;
+            width: 300px;
+            height: 70%;
+            padding: 20px 0;
+            margin-left: 35px;
+            border: rgba(255, 255, 255, .15) solid;
+            background: rgba(255, 255, 255, .15);
+        }
+        .text-muted{
+            color: #adb5bd!important;
+        }
+        ul{
+            padding-bottom: 20px; 
+        }
+        ul li a img{
+            background: #66BB6A;
+            top: 0;
+            border: none;
+            width: 20px;
+        }
+        .sidebar ul li{
+            padding: 15px;
+            margin-left: -20px;	
+        }
+        .sidebar ul li a{
+            color: #fff;
+            display: block;
+        }
+        .sidebar ul li a .fas{
+            width: 30px;
+            color: #bdb8d7!important;
+        }
+        i.fas.fa-home:hover,
+        i.fas.fa-file-invoice:hover,
+        i.fas.fa-video:hover,
+        i.fas.fa-id-badge:hover,
+        i.fas.fa-external-link-alt:hover,
+        i.fas.fa-code:hover,
+        i.far.fa-calendar-alt:hover,
+        i.far.fa-credit-card:hover{
+            color: #304FFE!important;
+        } 
+        .sidebar ul li a .far{
+            width: 30px;
+            color: #bdb8d7!important;
+        }
+        .sidebar ul li:hover{
+            background: rgba(255, 255, 255, .15);
+        }
+        .sidebar ul li a:hover{
+            text-decoration: none;
+        }
+        .badge {
+            padding-left: 9px;
+            padding-right: 9px;
+            -webkit-border-radius: 9px;
+            -moz-border-radius: 9px;
+            border-radius: 9px;
+        }
+
+        .label-warning[href],
+        .badge-warning[href] {
+            background-color: #c67605;
+        }
+        #lblCartCount {
+            font-size: 17px;
+            background: #ff0000;
+            color: #fff;
+            padding: 0 5px;
+            vertical-align: top;
+            margin-left: -10px; 
+        }
+        a {
+            text-decoration: none;
+        }
+	</style>
+</head>
+<body>
+    <!-- Navbar -->
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top mask-custom shadow-0">
+			<div class="container">
+				<a class="navbar-brand" href="index.html"><span style="color: #5e9693;">Skate</span><span style="color: #fff;">Shop</span></a>
+				<button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+				data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto" style="font-size: large;">
+						<li class="nav-item">
+						<a class="nav-link" href="index.html">Home</a>
+						</li>
+						<li class="nav-item">
+						<a class="nav-link" href="products.html">Shop</a>
+						</li>
+						<li class="nav-item">
+						<a class="nav-link" href="blog.html">Blog</a>
+						</li>
+						<li class="nav-item">
+						<a class="nav-link" href="about.html">About Us</a>
+						</li>
+						<li class="nav-item">
+						<a class="nav-link" href="contact.html">Contact</a>
+						</li>
+					</ul>
+					<div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <a href="#CartModal" data-bs-toggle="modal" data-bs-target="#CartModal"><img src="images/shopping-cart-white.png" style="width: 40px; height: 40px;"></a>
+                            <span class='badge badge-warning' id='lblCartCount'> 3 </span>
+                        </div>
+                        <button class="btn btn-secondary  px-3 me-3" data-bs-target="#LoginModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">
+                            Login
+                        </button>
+                        <button class="btn btn-dark me-3" data-bs-target="#SignupModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">
+                            Sign Up
+                        </button>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>  
+	<!-- Navbar -->
+    <!-- Login Modal-->
+    <div class="modal fade" id="LoginModalToggle" aria-hidden="true" aria-labelledby="LoginModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" style="background-color: #e0e1e4;">
+            <div class="modal-header">
+              <h5 class="modal-title" id="LoginModalToggleLabel">Login</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="col-2 mt-2">
+                    <button class="btn btn-dark">
+                        Login
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div> Don't have account?
+                </div>
+              <button class="btn btn-dark" data-bs-target="#SignupModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">Sign Up</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="SignupModalToggle" aria-hidden="true" aria-labelledby="SignupModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" style="background-color: #e0e1e4;">
+            <div class="modal-header">
+              <h5 class="modal-title" id="SignupModalToggleLabel">Sign Up</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-floating col-6 mb-3">
+                        <input type="firstname" class="form-control" id="floatingInput" placeholder="First Name" required>
+                        <label for="floatingInput" style="margin-left: 10px;">First name</label>
+                    </div>
+                    <div class="form-floating col-6 mb-3">
+                        <input type="lastname" class="form-control" id="floatingInput" placeholder="Last Name" required>
+                        <label for="floatingInput" style="margin-left: 10px;">Last name</label>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="confirm_floatingPassword" placeholder="confirm Password" required>
+                    <label for="floatingPassword">Confirm Password</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Agree <a href="terms.html">Terms and Conditions</a>
+                    </label>
+                </div>
+                <div class="col-3 mt-2">
+                    <button class="btn btn-dark">
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div>Already member?</div>
+              <button class="btn btn-dark" data-bs-target="#LoginModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="btn btn-primary" data-bs-toggle="modal" href="#LoginModalToggle" role="button">Login</a> 
+    <!-- Login Modal-->
+    <!-- Cart Modal -->
+    <div class="modal fade" id="CartModal" tabindex="-1" aria-labelledby="CartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content" style="background-color: #e0e1e4;">
+            <div class="modal-header">
+            <h5 class="modal-title" id="CartModalLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="row main align-items-center">
+                            <div class="col-2"><img class="img-fluid" src="images/board1.png"></div>
+                            <div class="col-4">
+                                <div class="row text-muted">Sets</div>
+                                <div class="row">Zero Green</div>
+                            </div>
+                            <div class="col-2">
+                                <div class="bottom d-flex flex-row justify-content-center mt-3">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">+</span>
+                                        <input type="text" class="form-control" value="1">
+                                        <span class="input-group-text">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">149.00 €</div>
+                            <div class="col-2"><span class="close">&#10005;</span></div>
+                        </div>
+                        <div class="row main align-items-center border-top">
+                            <div class="col-2"><img class="img-fluid" src="images/wheel2.png"></div>
+                            <div class="col-4">
+                                <div class="row text-muted">Wheels</div>
+                                <div class="row">RFW Longboard Yellow</div>
+                            </div>
+                            <div class="col-2">
+                                <div class="bottom d-flex flex-row justify-content-center mt-3">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">+</span>
+                                        <input type="text" class="form-control" value="1">
+                                        <span class="input-group-text">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">59.00 €</div>
+                            <div class="col-2"><span class="close">&#10005;</span></div>
+                        </div>
+                        <div class="row main align-items-center border-top">
+                            <div class="col-2"><img class="img-fluid" src="images/trucks1.png"></div>
+                            <div class="col-4">
+                                <div class="row text-muted">Trucks</div>
+                                <div class="row">Independent Rasta</div>
+                            </div>
+                            <div class="col-2">
+                                <div class="bottom d-flex flex-row justify-content-center mt-3">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">+</span>
+                                        <input type="text" class="form-control" value="1">
+                                        <span class="input-group-text">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">39.00 €</div>
+                            <div class="col-2"><span class="close">&#10005;</span></div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card m-2" style="background-color: #e0e1e4;">
+                        <div class="row d-flex justify-content-center m-2">
+                            <div><h5><b>Summary</b></h5></div>
+                            <hr class="line">
+                            <div class="d-flex justify-content-between information"><span>ITEMS 3</span><span>237.00 €</span></div>
+                            <div>
+                                <select class="form-select m-2 text-muted" aria-label="Default select example">
+                                    <option selected>Standard-Delivery - 5.00€</option>
+                                </select>
+                            </div>
+                            <hr class="line">
+                            <div class="d-flex justify-content-between information"><span>TOTAL PRICE</span><span>242.00 €</span></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="products.html" style="color: #ffffff;">Back to Shop</a></button>
+            <button type="button" class="btn btn-dark"><a href="cart.html" style="color: #ffffff;">Proceed to Checkout</a></button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Cart Modal -->
+    <div class="container mt-5 pt-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <a href="#!"><img class="card-img-top" src="images/skateBlog3.jpg" alt="..." /></a>
+                    <div class="card-body">
+                        <div class="small text-muted">23. November 2023</div>
+                        <h2 class="card-title">Skateboarding for Good: How Skaters Are Making a Positive Impact</h2>
+                        <p class="card-text" style="text-align: justify;">
+                            Skateboarding isn't just about landing tricks and pushing limits - it's also about making a positive impact on the world 
+                            around us. In this blog post, we're shining a spotlight on the incredible ways that skaters are using their passion for 
+                            skateboarding to give back to their communities and make a difference.
+                            <ol>
+                                <li>
+                                    <b>Community Outreach Programs:</b> Skateboarders around the world are coming together to create community outreach 
+                                    programs that provide access to skateboarding for underserved youth. These programs offer free or low-cost skate 
+                                    lessons, equipment rentals, and safe spaces for kids to skate, fostering a sense of belonging and empowerment 
+                                    within the skate community.
+                                </li>
+                                <li>
+                                    <b>Skatepark Advocacy and Development:</b> Skaters are also leading the charge in advocating for the creation and 
+                                    maintenance of public skateparks in their communities. By organizing grassroots campaigns, fundraising efforts, and 
+                                    working with local governments, skaters are ensuring that everyone has access to safe and inclusive spaces where 
+                                    they can skate, connect, and express themselves freely.
+                                </li>
+                                <li>
+                                    <b>Environmental Stewardship:</b> Many skaters are passionate about protecting the environment and reducing their 
+                                    carbon footprint. From organizing beach cleanups and tree planting initiatives to promoting eco-friendly skate 
+                                    products and advocating for sustainable skatepark design, skaters are taking action to preserve the planet for 
+                                    future generations to enjoy.
+                                </li>
+                                <li>
+                                    <b>Social Justice and Equality:</b> Skateboarding has long been a vehicle for social change, with skaters using their 
+                                    platforms to raise awareness and advocate for issues like racial equality, LGBTQ+ rights, and social justice. By 
+                                    organizing protests, creating art installations, and using social media to amplify their voices, skaters are working 
+                                    to create a more inclusive and equitable world for all.
+                                </li>
+                                <li>
+                                    <b>Creative Expression and Artivism:</b> Skateboarding and art have always been closely intertwined, and many skaters 
+                                    are using their artistic talents to inspire change and spark conversations about important social issues. From mural 
+                                    painting and street art to photography and filmmaking, skaters are harnessing the power of creativity to spread 
+                                    messages of hope, unity, and resilience.
+                                </li>
+                            </ol>
+                                At SkateShop, we believe in the transformative power of skateboarding and the incredible impact that skaters can have on 
+                                their communities and the world. That's why we're committed to supporting initiatives that promote access, inclusion, and 
+                                positive social change within the skate community and beyond.
+                            <p>
+                                Stay tuned to our blog for more stories of skateboarding for good and ways that you can get involved in making a difference 
+                                through skateboarding. Together, we can roll towards a brighter and more inclusive future for all.
+                            </p>
+                            <p>Keep skating with purpose,</p>
+                            <p>Rodney Reynolds</p>
+                            <p>SkateShop Team</p>
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-secondary">
+                                <a href="blogPost4.html" style="text-decoration: none; color: #fff;">Previous</a>
+                            </button>
+                        </div>
+                        <div class="col d-flex flex-row-reverse">
+                            <button class="btn btn-secondary">
+                                <a href="blogPost5.html" style="text-decoration: none; color: #fff;">Next</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-header">Search</div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                            <button class="btn btn-dark" id="button-search" type="button">Go!</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header">About Blog</div>
+                    <div class="card-body" style="text-align: justify;">
+                        Welcome to SkateShop - your ultimate destination for all things skateboarding! Whether you're a 
+                        seasoned pro or just starting out, we've got everything you need to ride in style and push your limits. From 
+                        top-of-the-line decks and wheels to the latest apparel and accessories, we've curated a collection that caters 
+                        to every skater's needs. Stay tuned to our blog for the latest updates, tips, and tricks to elevate your skate 
+                        game to new heights. Let's roll together!
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header">Last 3 Posts</div>
+                    <div class="card-body" style="text-align: justify;">
+                        <div>
+                            <a href="blogPost1.html" style="text-decoration: none; color: black;">
+                                    Rolling into Spring: Your Essential Skateboarding Gear Guide
+                                <div class="row text-muted border-bottom">
+                                    <div class="col">
+                                        Rodney Reynolds
+                                    </div>
+                                    <div class="col d-flex flex-row-reverse">
+                                            30. March 2024
+                                    </div>
+                                </div>                             
+                            </a>
+                        </div>
+                        <div>
+                            <a href="blogPost2.html" style="text-decoration: none; color: black;">
+                                    Mastering the Basics: A Beginner's Guide to Skateboarding
+                                <div class="row text-muted border-bottom">
+                                    <div class="col">
+                                        Bam Bosek
+                                    </div>
+                                    <div class="col d-flex flex-row-reverse">
+                                            05. March 2024
+                                    </div>
+                                </div>                             
+                            </a>
+                        </div>
+                        <div>
+                            <a href="blogPost4.html" style="text-decoration: none; color: black;">
+                                The Art of Skateboarding: Exploring Creativity on Four Wheels
+                                <div class="row text-muted border-bottom">
+                                    <div class="col">
+                                        Jesse Smith
+                                    </div>
+                                    <div class="col d-flex flex-row-reverse">
+                                        17. January 2024
+                                    </div>
+                                </div>                             
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+	<footer class="text-lg-start mask-custom text-muted pt-3 mt-5">
+		<section class="">
+		  	<div class="container text-center text-md-start">
+				<div class="row">
+			  		<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+						<h6 class="text-uppercase fw-bold mb-4">
+						<i class="fas fa-gem me-3"></i>SkateShop
+						</h6>
+						<p style="text-align: justify;">
+							"Welcome to SkateShop, your one-stop destination for all things skateboarding!
+							From top-quality boards and gear to expert advice, we've got everything you need to hit
+							the streets in style. Join our passionate community and elevate your skate game today!"
+						</p>
+			  		</div>
+					<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+						<h6 class="text-uppercase fw-bold mb-4">
+						<a href="products.html" style="color: #bdb8d7!important;">Products</a>
+						</h6>
+						<p>
+						<a href="sets.html" class="text-reset">Sets</a>
+						</p>
+                        <p>
+                        <a href="decks.html" class="text-reset">Decks</a>
+                        </p>
+						<p>
+						<a href="wheels.html" class="text-reset">Wheels</a>
+						</p>
+						<p>
+						<a href="trucks.html" class="text-reset">Trucks</a>
+						</p>
+					</div>
+					<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+						<h6 class="text-uppercase fw-bold mb-4">
+						Useful links
+						</h6>
+						<p>
+						<a href="privacyPolicy.html" class="text-reset">Privacy policy</a>
+						</p>
+						<p>
+						<a href="legalInfo.html" class="text-reset">Legal information</a>
+						</p>
+						<p>
+						<a href="shippingInfo.html" class="text-reset">Shipping information</a>
+						</p>
+						<p>
+						<a href="terms.html" class="text-reset">Terms and Conditions</a>
+						</p>
+					</div>
+					<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+						<h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+						<a href="contact.html" style="color: #bdb8d7!important;;"><i class="fas fa-home me-3"></i>View location</p></a><p>
+						<p>
+						<i class="fas fa-envelope me-3"></i>
+						info@skateshop.com
+						</p>
+						<p><i class="fas fa-phone me-3"></i> +372 5612 3456</p>
+						<p><i class="fas fa-print me-3"></i> +372 501 2345</p>
+					</div>
+				</div>
+		  	</div>
+		</section>
+		<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+		  © 2024 Copyright: SkateShop
+		</div>
+	</footer>
+	<!-- Footer -->
+</body>
+</html>
